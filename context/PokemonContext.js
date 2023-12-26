@@ -38,7 +38,7 @@ const reducer = (state, action) => {
         ...state,
         allPokemon: action.payload.results,
         next: action.payload.next,
-        // loading: false,
+        loading: false,
         hasMore: true,
       };
 
@@ -46,7 +46,7 @@ const reducer = (state, action) => {
       return { ...state, pokemon: action.payload, loading: false };
 
     case GET_POKEMON_DATABASE:
-      return { ...state, pokemonDataBase: action.payload, loading: false };
+      return { ...state, pokemonDataBase: action.payload };
 
     case GET_SEARCH:
       return { ...state, searchResults: action.payload, loading: false };
@@ -118,12 +118,11 @@ export const PokemonProvider = ({ children }) => {
     const res = await fetch(`${baseUrl}pokemon?limit=24`);
     const data = await res.json();
     // console.log(data.results);
-    dispatch({ type: 'GET_ALL_POKEMON', payload: data });
 
     //fetch character data
     const allPokemonData = await getResults(data.results);
-
     setAllPokemonData(allPokemonData);
+    dispatch({ type: 'GET_ALL_POKEMON', payload: data });
   };
   //fetch all pokemon By Type
   const getPokemonByType = async (type) => {
@@ -168,7 +167,6 @@ export const PokemonProvider = ({ children }) => {
     const data = await res.json();
 
     dispatch({ type: 'GET_POKEMON_DATABASE', payload: data.results });
-    // console.log('ddd');
   };
 
   //next page

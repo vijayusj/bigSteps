@@ -33,7 +33,9 @@ const PokemonList = React.memo(() => {
     '#85c1e9',
     '#76d7c4',
   ];
-  useEffect(() => {}, [list]);
+  useEffect(() => {
+    // console.log('start');
+  }, [list]);
   return (
     <>
       {!loading ? (
