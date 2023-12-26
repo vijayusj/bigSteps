@@ -1,0 +1,54 @@
+@use 'variables.scss' as *;
+.modal_container {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  background-color: rgba(27, 31, 31, 0.568);
+
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .modal {
+    position: relative;
+    height: 50%;
+    width: 60%;
+    border: 2px solid rgb(255, 255, 255);
+    background-color: white;
+    animation: intro 0.3s ease-in-out;
+    // transition: all 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .close {
+      font-size: 2.2rem;
+      // background-color: aquamarine;
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 1rem;
+      z-index: 333;
+      cursor: pointer;
+    }
+  }
+  @include tablet {
+    .modal {
+      width: 85%;
+    }
+  }
+  @include mobile-big {
+    .modal {
+      width: 96%;
+    }
+  }
+  @keyframes intro {
+    from {
+      transform: scale(0);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+}

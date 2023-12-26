@@ -1,0 +1,32 @@
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99;
+  .loader {
+    position: relative;
+    height: 8rem;
+    width: 8rem;
+    border-top: 4px solid rgb(127, 250, 12);
+    border-radius: 50%;
+    animation: load 0.8s linear infinite;
+    display: grid;
+    &::before {
+      content: '';
+      grid-area: 1/1;
+
+      margin: 1rem;
+      padding: 3px;
+      border-top: 3px solid red;
+      border-radius: 50%;
+      animation: load 0.4s linear infinite;
+      animation-direction: reverse;
+    }
+  }
+
+  @keyframes load {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+}

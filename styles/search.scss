@@ -1,0 +1,142 @@
+@use 'variables.scss' as *;
+
+.search_container {
+  position: relative;
+  height: 50vh;
+  width: 100%;
+  background-color: blueviolet;
+  margin-bottom: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  img {
+    object-fit: cover;
+    opacity: 0.5;
+  }
+  .search {
+    height: 5rem;
+    width: 60%;
+    z-index: 2;
+    display: flex;
+    border-radius: 4px;
+    overflow: hidden;
+    input {
+      flex-grow: 1;
+      // flex-basis: 30rem;
+      padding-left: 2rem;
+      font-size: 1.9rem;
+      font-weight: 600;
+    }
+    button {
+      padding: 0 3rem;
+      font-size: 1.8rem;
+      background: $background;
+      color: rgb(0, 0, 0);
+      cursor: pointer;
+      &:hover {
+        background: $hover;
+      }
+    }
+    input,
+    button {
+      outline: none;
+      border: none;
+    }
+  }
+  .dropdown_container {
+    // background-color: aliceblue;
+    position: relative;
+    display: inline-block;
+
+    width: 18rem;
+    text-align: center;
+    cursor: pointer;
+
+    .default {
+      text-transform: capitalize;
+      font-size: 1.7rem;
+      background: $background;
+      font-weight: 500;
+      // padding: 1rem 1.5rem;
+      padding: 1rem 0;
+      margin-bottom: 1rem;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+      position: relative;
+
+      span {
+        margin-left: 0.5rem;
+      }
+      &:hover {
+        letter-spacing: 2px;
+        color: white;
+        background: linear-gradient(
+          to top left,
+          rgb(225, 255, 0),
+          rgba(0, 255, 238, 0.873)
+        );
+      }
+    }
+
+    // &:active .dropdown_list {
+    //   display: block;
+    // }
+
+    .dropdown_list {
+      text-align: left;
+      display: block;
+      position: absolute;
+      background-color: #f9f9f9;
+      // min-width: 160px;
+      width: inherit;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      max-height: 25rem;
+      overflow-y: scroll;
+      // padding-top: 1rem;
+      li {
+        text-transform: capitalize;
+        padding: 1rem 1rem 0.5rem 1rem;
+        margin-bottom: 0.7rem;
+        &:hover,
+        &:focus {
+          background: $background;
+        }
+        font-size: 1.7rem;
+        list-style: none;
+      }
+    }
+  }
+
+  @include tablet {
+    flex-direction: column;
+    justify-content: space-evenly;
+    .search {
+      width: 80%;
+    }
+  }
+  @include mobile-big {
+    .search {
+      width: 90%;
+      height: min-content;
+
+      flex-direction: column;
+      align-items: center;
+
+      // background-color: aquamarine;
+      input {
+        height: 5rem;
+        border-radius: 0 0 4px 4px;
+        flex-basis: auto;
+        width: 100%;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+      button {
+        padding: 1.1rem 2rem;
+        width: fit-content;
+      }
+    }
+  }
+}

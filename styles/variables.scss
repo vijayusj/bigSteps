@@ -1,0 +1,42 @@
+@use 'sass:map';
+
+$break-points: (
+  'break-point-mobile-small': 430px,
+  'break-point-mobile-big': 550px,
+  'break-point-tablet': 900px,
+  'break-point-desktop': 1200px,
+);
+$background: linear-gradient(
+  to right bottom,
+  rgb(225, 255, 0),
+  rgba(0, 255, 238, 0.873)
+);
+$hover: linear-gradient(
+  to top left,
+  rgb(225, 255, 0),
+  rgba(0, 255, 238, 0.873)
+);
+@function break-point($break-point-limit) {
+  @return map.get($break-points, $break-point-limit);
+}
+
+@mixin desktop {
+  @media screen and (max-width: break-point(break-point-desktop)) {
+    @content;
+  }
+}
+@mixin tablet {
+  @media screen and (max-width: break-point(break-point-tablet)) {
+    @content;
+  }
+}
+@mixin mobile-big {
+  @media screen and (max-width: break-point(break-point-mobile-big)) {
+    @content;
+  }
+}
+@mixin mobile-small {
+  @media screen and (max-width: break-point(break-point-mobile-small)) {
+    @content;
+  }
+}
