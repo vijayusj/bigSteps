@@ -17,6 +17,28 @@
     font-size: calc(1rem + 0.5vw);
     color: rgb(20, 19, 19);
   }
+  .load {
+    width: 75%;
+    // background-color: aqua;
+  }
+  .infinity {
+    // background-color: black;
+    padding: 1rem;
+    width: inherit;
+    display: flex;
+    justify-content: center;
+    // align-items: center;
+    flex-wrap: wrap;
+    gap: 2.5rem 2rem;
+  }
+  .end {
+    display: block;
+    width: 80%;
+    font-size: 2rem;
+    text-align: center;
+    padding: 1rem 0;
+    background: $background;
+  }
   .list_element {
     position: relative;
     border-radius: 3px;

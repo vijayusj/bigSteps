@@ -5,6 +5,8 @@ import Loading from './Loading';
 import Link from 'next/link';
 import '../styles/pokemonList.scss';
 import { usePokemonContext } from '@/context/PokemonContext';
+import InfiniteScroll from 'react-infinite-scroll-component';
+
 const PokemonList = React.memo(() => {
   const {
     next,
@@ -12,10 +14,62 @@ const PokemonList = React.memo(() => {
     nextLoading,
     hasMore,
     search,
+    nextLoad,
+
     allPokemonData: list,
   } = usePokemonContext();
   // console.log('nnn');
 
+  useEffect(() => {}, [list]);
+
+  return (
+    <>
+      {!loading ? (
+        <div className="list_container">
+          {list.length > 0 ? (
+            <InfiniteScroll
+              dataLength={list.length}
+              next={nextLoad}
+              hasMore={hasMore}
+              className="infinity"
+              loader={
+                <div className="load">
+                  <Loading />
+                </div>
+              }
+              endMessage={<p className="end">No more data to load.</p>}
+            >
+              {' '}
+              <Items list={list} />
+            </InfiniteScroll>
+          ) : (
+            search && (
+              <div className="no_results">
+                <h2>Sorry! We couldn't find any matching Pokemon 😞 </h2>
+              </div>
+            )
+          )}
+
+          {/* {hasMore && list.length > 0 && (
+            <div
+              className="load_more"
+              onClick={(e) => {
+                e.preventDefault();
+                next();
+              }}
+            >
+              {nextLoading ? 'Loading...' : 'LoadMore'}
+            </div>
+          )} */}
+        </div>
+      ) : (
+        <Loading />
+      )}
+    </>
+  );
+});
+
+const Items = ({ list }) => {
   const pkColors = [
     '#f8d5a3',
     '#f5b7b1',
@@ -33,83 +87,46 @@ const PokemonList = React.memo(() => {
     '#85c1e9',
     '#76d7c4',
   ];
-  useEffect(() => {}, [list]);
+  // console.log(list);
+  return list?.map((li, index) => {
+    const { id, name, types } = li;
+    if (types) {
+      types.length = 4;
+    }
 
-  return (
-    <>
-      {!loading ? (
-        <div className="list_container">
-          {list.length > 0
-            ? list.map((li, index) => {
-                const { id, name, types } = li;
-                if (types) {
-                  types.length = 4;
-                }
+    const color = pkColors[index % pkColors.length];
+    // console.log(color);
 
-                const color = pkColors[index % pkColors.length];
-                // console.log(color);
-
-                return (
-                  <Link
-                    href={`/pokemon/${id}?pokemon=${name}`}
-                    scroll={false}
-                    key={name}
-                  >
-                    <div
-                      className="list_element"
-                      style={{ backgroundColor: color }}
-                    >
-                      {' '}
-                      <div className="img">
-                        <Image
-                          src={`https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${id}.svg`}
-                          fill
-                          alt="name"
-                          onError={(e) => {
-                            e.currentTarget.src =
-                              'https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/6.svg';
-                          }}
-                        />
-                      </div>
-                      <div className="details">
-                        <div className="name">{name}</div>
-                        <div className="types">
-                          {types?.map((type) => {
-                            return (
-                              <p className="type" key={type?.type.name}>
-                                {type.type.name}
-                              </p>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                );
-              })
-            : search && (
-                <div className="no_results">
-                  <h2>Sorry! We couldn't find any matching Pokemon 😞 </h2>
-                </div>
-              )}
-
-          {hasMore && list.length > 0 && (
-            <div
-              className="load_more"
-              onClick={(e) => {
-                e.preventDefault();
-                next();
+    return (
+      <Link href={`/pokemon/${id}?pokemon=${name}`} scroll={false} key={name}>
+        <div className="list_element" style={{ backgroundColor: color }}>
+          {' '}
+          <div className="img">
+            <Image
+              src={`https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${id}.svg`}
+              fill
+              alt="name"
+              onError={(e) => {
+                e.currentTarget.src =
+                  'https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/6.svg';
               }}
-            >
-              {nextLoading ? 'Loading...' : 'LoadMore'}
+            />
+          </div>
+          <div className="details">
+            <div className="name">{name}</div>
+            <div className="types">
+              {types?.map((type) => {
+                return (
+                  <p className="type" key={type?.type.name}>
+                    {type.type.name}
+                  </p>
+                );
+              })}
             </div>
-          )}
+          </div>
         </div>
-      ) : (
-        <Loading />
-      )}
-    </>
-  );
-});
-
+      </Link>
+    );
+  });
+};
 export default PokemonList;

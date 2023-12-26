@@ -2,7 +2,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { PokemonProvider } from '../context/PokemonContext';
 const inter = Inter({ subsets: ['latin'] });
-
+import Search from '@/components/Search';
 export const metadata = {
   title: {
     template: 'Pokemon | %s',

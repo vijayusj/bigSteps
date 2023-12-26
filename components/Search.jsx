@@ -5,15 +5,20 @@ import Image from 'next/image';
 import { usePokemonContext } from '@/context/PokemonContext';
 import img from '../public/pokemon2.jpg';
 import '@/styles/search.scss';
+import { useRouter } from 'next/navigation';
+
 const Search = () => {
   const { types, getPokemonByType, getSearchResults } = usePokemonContext();
   const [query, setQuery] = useState('');
   const [type, setType] = useState('Choose Type');
   const [toggle, setToggle] = useState(false);
+  const router = useRouter();
   const onSearch = (e) => {
     e.preventDefault();
-
+    // router.push(`/${query}`, { scroll: false });
+    // router.push(`/?search=true`, { scroll: false });
     getSearchResults(query);
+    // redirect(`/${query}`);
   };
   return (
     <div className="search_container">

@@ -170,7 +170,7 @@ export const PokemonProvider = ({ children }) => {
   };
 
   //next page
-  const next = async () => {
+  const nextLoad = async () => {
     dispatch({ type: 'START_NEXT' });
     const res = await fetch(state.next);
     const data = await res.json();
@@ -232,7 +232,7 @@ export const PokemonProvider = ({ children }) => {
         getPokemonByType,
         // realTimeSearch,
         getSearchResults,
-        next,
+        nextLoad,
       }}
     >
       {children}
