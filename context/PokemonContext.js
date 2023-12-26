@@ -131,15 +131,16 @@ export const PokemonProvider = ({ children }) => {
 
     const res = await fetch(`${baseUrl}type/${type.trim()}`);
     const data = await res.json();
+    const pokemons = data.pokemon;
+    pokemons.length = 60;
 
     const allPokemonData = [];
 
-    for (const { pokemon } of data.pokemon) {
+    for (const { pokemon } of pokemons) {
       const pokemonRes = await fetch(pokemon.url);
       const pokemonData = await pokemonRes.json();
       allPokemonData.push(pokemonData);
     }
-    allPokemonData.length = 60;
 
     setAllPokemonData(allPokemonData);
     // console.log('complete');

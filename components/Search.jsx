@@ -17,7 +17,14 @@ const Search = () => {
   };
   return (
     <div className="search_container">
-      <Image src={img} fill alt="headPoster" placeholder="blur" priority />
+      <Image
+        src={img}
+        fill
+        alt="headPoster"
+        placeholder="blur"
+        priority
+        quality={50}
+      />
       <div className="search">
         <input
           type="text"

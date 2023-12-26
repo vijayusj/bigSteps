@@ -15,7 +15,7 @@ export default function RootLayout({ children, modal }) {
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/pokemon.png" type="image/png" sizes="32x32" />
+        <link rel="icon" href="/icon.png" type="image/png" sizes="32x32" />
       </head>
       <body className={inter.className}>
         <PokemonProvider>
