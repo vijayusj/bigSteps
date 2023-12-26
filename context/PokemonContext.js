@@ -68,7 +68,7 @@ const reducer = (state, action) => {
       if (action.payload) {
         // console.log('ii');
         const { name, value } = action.payload;
-        return { ...state, loading: false, [name]: value, search: false };
+        return { ...state, loading: false, [name]: value };
       }
 
       return { ...state, loading: false, search: false };
